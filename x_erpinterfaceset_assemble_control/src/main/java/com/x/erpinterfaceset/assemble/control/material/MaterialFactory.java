@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kingdee.bos.webapi.entity.IdentifyInfo;
-import com.sun.jna.platform.win32.NTSecApi;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.kingdee.bos.webapi.sdk.K3CloudApi;
@@ -139,29 +138,50 @@ public class MaterialFactory {
     public List<MaterialJson> getMaterialJsons() { return this.materialJsons; }
 
     private List<Group> groups() throws Exception {
-        logger.info("开始请求物料分组数据");
-        String data = "{\"FormId\": \"SAL_MATERIALGROUP\",\"FieldKeys\": \"FID, FNumber, FName, FParentId\",\"FilterString\": [],\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": 0,\"Limit\": "+ limit +",\"SubSystemId\": \"\"}";
-        String res = api.billQuery(data);
-        List<Group> resp = gson.fromJson(res, groupType);
-        logger.debug("groups response:{}.", resp);
-        return resp;
+        List<Group> resp;
+        List<Group> totalResp = new ArrayList<>();
+        int startRow = 0;
+        do {
+            logger.info("开始请求物料分组数据");
+            String data = "{\"FormId\": \"SAL_MATERIALGROUP\",\"FieldKeys\": \"FID, FNumber, FName, FParentId\",\"FilterString\": [],\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": " + startRow + ",\"Limit\": "+ limit +",\"SubSystemId\": \"\"}";
+            String res = api.billQuery(data);
+            resp = gson.fromJson(res, groupType);
+            totalResp.addAll(resp);
+            logger.debug("groups response:{}.", resp);
+            startRow += 10000;
+        } while (resp.size() == 10000);
+        return totalResp;
     }
 
     private List<Unit> units() throws Exception {
-        logger.info("开始请求物料单位数据");
-        String data = "{\"FormId\": \"BD_UNIT\",\"FieldKeys\": \"FUNITID, FNumber, FName\",\"FilterString\": [],\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": 0,\"Limit\": "+ limit +",\"SubSystemId\": \"\"}";
-        String res = api.billQuery(data);
-        List<Unit> resp = gson.fromJson(res, unitType);
-        logger.debug("groups response:{}.", resp);
-        return resp;
+        List<Unit> resp;
+        List<Unit> totalResp = new ArrayList<>();
+        int startRow = 0;
+        do {
+            logger.info("开始请求物料单位数据");
+            String data = "{\"FormId\": \"BD_UNIT\",\"FieldKeys\": \"FUNITID, FNumber, FName\",\"FilterString\": [],\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": " + startRow + ",\"Limit\": "+ limit +",\"SubSystemId\": \"\"}";
+            String res = api.billQuery(data);
+            resp = gson.fromJson(res, unitType);
+            totalResp.addAll(resp);
+            logger.debug("groups response:{}.", resp);
+            startRow += 10000;
+        } while (resp.size() == 10000);
+        return totalResp;
     }
 
     private List<MaterialJson> materialJsons() throws Exception {
-        logger.info("开始请求物料数据");
-        String data = "{\"FormId\": \"BD_MATERIAL\",\"FieldKeys\": \"FMATERIALID, FUseOrgId, FNumber, FName, FSpecification, FMaterialGroup, F_YLAH_GKBUM, FBaseUnitId, FAuxUnitID, FPurchaseUnitId, FPurchasePriceUnitId\",\"FilterString\": \"FUseOrgId=\\'" + orgId + "\\'\",\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": 0,\"Limit\": "+ limit +",\"SubSystemId\": \"\"}";
-        String res = api.billQuery(data);
-        List<MaterialJson> resp = gson.fromJson(res, materialJsonType);
-        logger.debug("groups response:{}.", resp);
-        return resp;
+        List<MaterialJson> resp;
+        List<MaterialJson> totalResp = new ArrayList<>();
+        int startRow = 0;
+        do {
+            logger.info("开始请求物料数据");
+            String data = "{\"FormId\": \"BD_MATERIAL\",\"FieldKeys\": \"FMATERIALID, FUseOrgId, FNumber, FName, FSpecification, FMaterialGroup, FBaseUnitId, FAuxUnitID, FPurchaseUnitId, FPurchasePriceUnitId\",\"FilterString\": \"FUseOrgId=\\'" + orgId + "\\'\",\"OrderString\": \"\",\"TopRowCount\": 0,\"StartRow\": " + startRow + ",\"Limit\": " + limit + ",\"SubSystemId\": \"\"}";
+            String res = api.billQuery(data);
+            resp = gson.fromJson(res, materialJsonType);
+            totalResp.addAll(resp);
+            logger.debug("groups response:{}.", resp);
+            startRow += 10000;
+        } while (resp.size() == 10000);
+        return totalResp;
     }
 }

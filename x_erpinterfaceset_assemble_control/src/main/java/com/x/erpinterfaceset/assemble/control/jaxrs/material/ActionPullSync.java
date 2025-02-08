@@ -115,7 +115,7 @@ public class ActionPullSync extends BaseAction {
         material.setNumber(materialJson.getFNumber());
         material.setName(materialJson.getFName());
         material.setSpecification(materialJson.getFSpecification());
-        material.setYLAHGKBUM(materialJson.getFYLAHGKBUM());
+//        material.setYLAHGKBUM(materialJson.getFYLAHGKBUM());
         material.setBaseunit(factory.getUnitName(materialJson.getFBaseUnitId()));
         material.setAuxunit(factory.getUnitName(materialJson.getFAuxUnitID()));
         material.setPurchaseunit(factory.getUnitName(materialJson.getFPurchaseUnitId()));
@@ -139,7 +139,7 @@ public class ActionPullSync extends BaseAction {
         material.setNumber(materialJson.getFNumber());
         material.setName(materialJson.getFName());
         material.setSpecification(materialJson.getFSpecification());
-        material.setYLAHGKBUM(materialJson.getFYLAHGKBUM());
+//        material.setYLAHGKBUM(materialJson.getFYLAHGKBUM());
         material.setBaseunit(factory.getUnitName(materialJson.getFBaseUnitId()));
         material.setAuxunit(factory.getUnitName(materialJson.getFAuxUnitID()));
         material.setPurchaseunit(factory.getUnitName(materialJson.getFPurchaseUnitId()));

@@ -10,8 +10,8 @@ public class MaterialJson extends GsonPropertyObject {
     private String FName;
     private String FSpecification;
     private int FMaterialGroup;
-    @SerializedName("F.YLAH.GKBUM")
-    private String FYLAHGKBUM;
+//    @SerializedName("F.YLAH.GKBUM")
+//    private String FYLAHGKBUM;
     private int FBaseUnitId;
     private int FAuxUnitID;
     private int FPurchaseUnitId;
@@ -97,11 +97,11 @@ public class MaterialJson extends GsonPropertyObject {
         this.FMATERIALID = FMATERIALID;
     }
 
-    public String getFYLAHGKBUM() {
-        return FYLAHGKBUM;
-    }
-
-    public void setFYLAHGKBUM(String FYLAHGKBUM) {
-        this.FYLAHGKBUM = FYLAHGKBUM;
-    }
+//    public String getFYLAHGKBUM() {
+//        return FYLAHGKBUM;
+//    }
+//
+//    public void setFYLAHGKBUM(String FYLAHGKBUM) {
+//        this.FYLAHGKBUM = FYLAHGKBUM;
+//    }
 }
